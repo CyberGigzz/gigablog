@@ -1,2 +1,9 @@
-.venv/
+.venv/c
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+.DS_Store
+.env
