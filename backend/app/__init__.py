@@ -1,10 +1,7 @@
-from flask import Flask
+from fastapi import FastAPI
 
-app = Flask(__name__)
+def create_app():
 
-@app.route('/')
-def home():
-    return "Welcome to GigaBlog API!"
+    app = FastAPI()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return app
