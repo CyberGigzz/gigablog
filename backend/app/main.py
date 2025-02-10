@@ -1,16 +1,15 @@
-from typing import Union
+import sys
+import os
 
+from app.config.config import Config
+
+settings = Config()
+
+# FastAPI app code
 from fastapi import FastAPI
-from pydantic import BaseModel
 
 app = FastAPI()
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
-
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-
+    return {"message": "Hello, World!"}
