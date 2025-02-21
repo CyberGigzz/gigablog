@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import argparse
 from typing import Optional
 
+
 load_dotenv()
 
 @dataclass
@@ -17,14 +18,13 @@ class Config:
 
     def __post_init__(self):
         self._load_from_env()
-        # self._load_from_cli()
+        self._load_from_cli()
 
     def _load_from_env(self):
         try:
             self.port = int(os.environ.get("PORT", self.port))
         except ValueError:
             print("Error: PORT must be an integer.")
-            # Handle the error appropriately (e.g., exit or use a default)
 
         self.env = os.environ.get("ENV", self.env)
         self.db_dsn = os.environ.get("DB_DSN", self.db_dsn)
@@ -38,6 +38,7 @@ class Config:
             print("Error: DB_MAX_IDLE_CONNS must be an integer.")
         self.db_max_idle_time = os.environ.get("DB_MAX_IDLE_TIME", self.db_max_idle_time)
 
+    
     def _load_from_cli(self):
         # Only parse known arguments
         parser = argparse.ArgumentParser()
@@ -65,5 +66,3 @@ class Config:
             self.db_max_idle_time = args.db_max_idle_time
 
 settings = Config()
-
-print(settings) # 
