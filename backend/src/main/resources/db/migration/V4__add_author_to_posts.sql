@@ -1,3 +1,0 @@
-ALTER TABLE posts
-ADD COLUMN author_id INTEGER,
-ADD FOREIGN KEY (author_id) REFERENCES users(id);
