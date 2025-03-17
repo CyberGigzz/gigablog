@@ -1,6 +1,7 @@
 package com.gigablog.backend.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,5 +55,7 @@ public class PostServiceTest {
         assertEquals(content, createdPost.getContent());
         verify(postRepository, times(1)).save(any(Post.class));
     }
+
+    
 
 }
