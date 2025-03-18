@@ -70,4 +70,11 @@ public class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.updatedAt").exists());
     }
 
+    @Test
+    void shouldDeletePost() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/posts/20")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
 }
