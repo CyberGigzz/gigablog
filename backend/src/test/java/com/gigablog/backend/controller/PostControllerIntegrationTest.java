@@ -36,7 +36,7 @@ public class PostControllerIntegrationTest {
 
     @Test
     void shouldGetPostById() throws Exception {
-        mockMvc.perform(get("/api/v1/posts/1")
+        mockMvc.perform(get("/api/v1/posts/20")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists())
@@ -55,6 +55,19 @@ public class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$.title").value("Test Post Title"))
                 .andExpect(jsonPath("$.content").value("Test Post Content"))
                 .andExpect(jsonPath("$.createdAt").exists());
+    }
+
+    @Test
+    void shouldUpdatePost() throws Exception {
+        String postJson = "{\"title\": \"Test Post Title Updated\", \"content\": \"Test Post Content Updated\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/posts/20")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(postJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Test Post Title Updated"))
+                .andExpect(jsonPath("$.content").value("Test Post Content Updated"))
+                .andExpect(jsonPath("$.updatedAt").exists());
     }
 
 }

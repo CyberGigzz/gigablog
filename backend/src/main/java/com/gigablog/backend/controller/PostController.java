@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gigablog.backend.model.Post;
 import com.gigablog.backend.service.PostService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -42,4 +44,8 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
     
+    @PutMapping("/{id}")
+    public Post updatePost(@PathVariable Long id, @RequestBody Post updatedPost) {
+        return postService.updatePost(id, updatedPost);
+    }
 }

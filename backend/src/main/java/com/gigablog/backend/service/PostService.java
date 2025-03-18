@@ -34,6 +34,7 @@ public class PostService {
         Post existingPost = getPostById(id);
         existingPost.setTitle(updatedPost.getTitle());
         existingPost.setContent(updatedPost.getContent());
+        existingPost.setUpdatedAt(LocalDateTime.now()); 
         return postRepository.save(existingPost);
     }
 
