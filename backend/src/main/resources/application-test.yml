@@ -1,13 +1,13 @@
 spring:
   datasource:
-    url: jdbc:tc:postgresql:16:///testdb?TC_TMPFS=/testtmpfs:rw
+    url: jdbc:tc:postgresql:17:///testdb
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    username: test
-    password: test
+    username: testuser
+    password: testpass
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none # Let Flyway handle schema
+      ddl-auto: none
   flyway:
     enabled: true
     locations: classpath:db/migration

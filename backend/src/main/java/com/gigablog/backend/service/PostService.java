@@ -21,6 +21,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public Post getPostById(Long id) {
+        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found" + id));
+    }
+
     public Post createPost(String title, String content) {
         Post post = new Post();
         post.setTitle(title);
