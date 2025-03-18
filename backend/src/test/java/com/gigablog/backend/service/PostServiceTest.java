@@ -39,19 +39,18 @@ public class PostServiceTest {
 
     @Test
     public void testCreatePost() {
-        String title = "My First Post";
-        String content = "This is the content of my first post.";
         Post post = new Post();
-        post.setTitle("My First Post");
-        post.setContent(content);
+        post.setTitle("Test Title");
+        post.setContent("Test Content");
         post.setCreatedAt(LocalDateTime.now());
 
         when(postRepository.save(any(Post.class))).thenReturn(post);
 
-        Post createdPost = postService.createPost(title, content);
+        Post createdPost = postService.createPost(post);
 
-        assertEquals(title, createdPost.getTitle());
-        assertEquals(content, createdPost.getContent());
+        assertEquals(post.getTitle(), createdPost.getTitle());
+        assertEquals(post.getContent(), createdPost.getContent());
+        assertEquals(post.getCreatedAt(), createdPost.getCreatedAt());
         verify(postRepository, times(1)).save(any(Post.class));
     }
 

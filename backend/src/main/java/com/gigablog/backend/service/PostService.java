@@ -22,14 +22,23 @@ public class PostService {
     }
 
     public Post getPostById(Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found" + id));
+        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found " + id));
     }
 
-    public Post createPost(String title, String content) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContent(content);
-        post.setCreatedAt(LocalDateTime.now());
+    public Post createPost(Post post) {
+        post.setCreatedAt(LocalDateTime.now()); 
         return postRepository.save(post);
+    }
+
+    public Post updatePost(Long id, Post updatedPost) {
+        Post existingPost = getPostById(id);
+        existingPost.setTitle(updatedPost.getTitle());
+        existingPost.setContent(updatedPost.getContent());
+        return postRepository.save(existingPost);
+    }
+
+    public void deletePost(Long id) {
+        Post post = getPostById(id);
+        postRepository.delete(post);
     }
 }

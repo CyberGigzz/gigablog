@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,5 +34,27 @@ public class PostControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].createdAt").exists());
     }
 
+    @Test
+    void shouldGetPostById() throws Exception {
+        mockMvc.perform(get("/api/v1/posts/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.content").exists())
+                .andExpect(jsonPath("$.createdAt").exists());
+    }
+
+    @Test
+    void shouldCreatePost() throws Exception {
+        String postJson = "{\"title\": \"Test Post Title\", \"content\": \"Test Post Content\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/posts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(postJson))
+                .andExpect(status().isCreated()) // Or status().isOk() depending on your controller
+                .andExpect(jsonPath("$.title").value("Test Post Title"))
+                .andExpect(jsonPath("$.content").value("Test Post Content"))
+                .andExpect(jsonPath("$.createdAt").exists());
+    }
 
 }
