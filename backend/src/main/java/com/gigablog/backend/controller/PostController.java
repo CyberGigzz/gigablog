@@ -17,7 +17,6 @@ import com.gigablog.backend.service.PostService;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostController {

@@ -6,7 +6,7 @@ BEGIN
             'Random Post ' || i || ' - ' || MD5(RANDOM()::TEXT),
             'Content for post ' || i || ' with random text ' || MD5(RANDOM()::TEXT),
             CURRENT_TIMESTAMP - (RANDOM() * INTERVAL '180 days'),
-            NULL 
+            NULL
         );
     END LOOP;
 END;
