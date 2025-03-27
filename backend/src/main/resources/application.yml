@@ -4,12 +4,8 @@ spring:
 
     datasource:
        url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5431/${POSTGRES_DB}
-        # url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5431/postgres_gigablog
        username: ${POSTGRES_USER}
-        # username: postgres_giga
-
        password: ${POSTGRES_PASSWORD}
-        # password: password
 
     jpa:
         hibernate:
