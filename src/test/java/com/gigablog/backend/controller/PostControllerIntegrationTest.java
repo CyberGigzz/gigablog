@@ -23,16 +23,16 @@ public class PostControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // @Test
-    // void shouldGetAllPosts() throws Exception {
-    //     mockMvc.perform(get("/api/v1/posts")
-    //             .contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(status().isOk())
-    //             .andExpect(jsonPath("$").isArray())
-    //             .andExpect(jsonPath("$[0].title").exists())
-    //             .andExpect(jsonPath("$[0].content").exists())
-    //             .andExpect(jsonPath("$[0].createdAt").exists());
-    // }
+    @Test
+    void shouldGetAllPosts() throws Exception {
+        mockMvc.perform(get("/api/v1/posts")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].title").exists())
+                .andExpect(jsonPath("$[0].content").exists())
+                .andExpect(jsonPath("$[0].createdAt").exists());
+    }
 
     // @Test
     // void shouldGetPostById() throws Exception {
