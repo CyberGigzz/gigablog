@@ -33,6 +33,8 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Setup Docker
+      uses: docker/setup-buildx-action@v3
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       env:
