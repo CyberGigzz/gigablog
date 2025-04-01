@@ -10,20 +10,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   postgres:
-    #     image: postgres:17.2-bullseye
-    #     env:
-    #       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-    #       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-    #       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-    #     ports:
-    #       - 5432:5432
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      postgres:
+        image: postgres:17.2-bullseye
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v4
@@ -37,10 +37,6 @@ jobs:
       uses: docker/setup-buildx-action@v3
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-      env:
-        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${{ secrets.POSTGRES_DB }}
-        SPRING_DATASOURCE_USERNAME: ${{ secrets.POSTGRES_USER }}
-        SPRING_DATASOURCE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
     - name: Install Flyway
       run: wget -qO- https://download.red-gate.com/maven/release/com/redgate/flyway/flyway-commandline/latest/flyway-commandline-latest-linux-x64.tar.gz | tar -xvz && sudo ln -s `pwd`/flyway-*/flyway /usr/local/bin
@@ -49,7 +45,7 @@ jobs:
       env:
         FLYWAY_USER: ${{ secrets.POSTGRES_USER }}
         FLYWAY_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        FLYWAY_URL: jdbc:postgresql://postgres:5432/${{ secrets.POSTGRES_DB }}    
+        FLYWAY_URL: jdbc:postgresql://postgres:5432/${{ secrets.POSTGRES_DB }}
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
