@@ -10,8 +10,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers 
 class ApplicationTests {
 
-	// @Test
-	// void contextLoads() {
-	// }
+	@Test
+	void contextLoads() {
+	}
 
 }

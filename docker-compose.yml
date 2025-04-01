@@ -24,6 +24,22 @@ services:
     networks:
       - gigablog-network
 
+  gigablog_app:
+    image: cybergigzz/gigablog:latest
+    container_name: gigablog_app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://gigablog_db:5432/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_FLYWAY_ENABLED=true
+    networks:
+      - gigablog-network
+    depends_on:
+      - gigablog_db
+
   # gigablog_backend:
   #   build:
   #     context: .
