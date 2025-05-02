@@ -2,8 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-config
+  namespace: development
 data:
   database_host: postgres-service
   database_port: "5432"
   connection_pool_size: "10"
-  # postgres_url: mongo-service 

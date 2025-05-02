@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-deployment
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -13,20 +14,29 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres-container
-          image: postgres:latest
-          ports:
-            - containerPort: 5432
+        - name: gigablog-db  
+          image: postgres:17.2-bullseye  
           env:
             - name: POSTGRES_USER
-              value: gigablog_user
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: username
             - name: POSTGRES_PASSWORD
-              value: secure_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
             - name: POSTGRES_DB
-              value: gigablog_db
+              value: postgres_gigablog
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-service:5432/gigablog_db"
+          ports:
+            - containerPort: 5432 
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-data
           emptyDir: {}
+

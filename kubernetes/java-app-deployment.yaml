@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gigablog-app-deployment
+  namespace: development
 spec:
   replicas: 2
   selector:
@@ -12,15 +13,21 @@ spec:
       labels:
         app: gigablog-app
     spec:
-      containers:
+      containers:wc
         - name: gigablog-app-container
-          image: your-dockerhub-username/gigablog:latest
+          image: cybergigzz/gigablog
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgres-service:5432/gigablog_db
-            - name: SPRING_DATASOURCE_USERNAME
-              value: gigablog_user
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: secure_password
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://postgres-service:5432/gigablog_db
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials  
+                key: username             
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials  
+                key: password
